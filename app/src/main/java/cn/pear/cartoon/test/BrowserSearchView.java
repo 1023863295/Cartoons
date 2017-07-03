@@ -42,6 +42,7 @@ import cn.pear.barcodescanner.CaptureActivity;
 import cn.pear.cartoon.R;
 import cn.pear.cartoon.adapter.UrlAdapter;
 import cn.pear.cartoon.bean.SearchKeyWords;
+import cn.pear.cartoon.db.GreenDaoUtils;
 import cn.pear.cartoon.global.Constants;
 import cn.pear.cartoon.tools.ApplicationUtils;
 import cn.pear.cartoon.tools.OkhttpUtil;
@@ -343,7 +344,7 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-//                        doClearHistory();
+                        GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().deleteAll();
                     }
                 });
     }
@@ -400,10 +401,22 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                     e.printStackTrace();
                 }
             }
-
         }
+
+        saveKeywords(stringWord);
         activity.getMwebview().loadUrl(targetUrl);
         activity.getMwebview().setVisibility(View.VISIBLE);
+    }
+
+    private void saveKeywords(String words){
+        SearchKeyWords keyWords = new SearchKeyWords();
+        keyWords.setKeywords(stringWord);
+        if (true){
+            //如果数据库已经存在，不插入
+            GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().insert(keyWords);
+        }else{
+            GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().insert(keyWords);
+        }
     }
 
 

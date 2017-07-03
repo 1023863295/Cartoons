@@ -70,6 +70,7 @@ public class UrlAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 mContext.browserSearchView.editTextUrl.setText(mContext.browserSearchView.urlList.get(position).getKeywords());
+                mContext.browserSearchView.editTextUrl.setSelection(mContext.browserSearchView.editTextUrl.getText().length());
             }
         });
 
