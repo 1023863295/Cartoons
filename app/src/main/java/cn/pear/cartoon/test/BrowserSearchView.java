@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,18 +27,32 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import cn.pear.barcodescanner.CaptureActivity;
 import cn.pear.cartoon.R;
 import cn.pear.cartoon.adapter.UrlAdapter;
+import cn.pear.cartoon.bean.SearchKeyWords;
 import cn.pear.cartoon.global.Constants;
 import cn.pear.cartoon.tools.ApplicationUtils;
+import cn.pear.cartoon.tools.OkhttpUtil;
 import cn.pear.cartoon.tools.PermissionUtil;
+import cn.pear.cartoon.tools.StringUtil;
 import cn.pear.cartoon.ui.HomeActivity;
 import cn.pear.cartoon.view.EditTextPreIme;
+import cn.shpear.okhttp3.Call;
+import cn.shpear.okhttp3.OkHttpClient;
+import cn.shpear.okhttp3.Request;
+import cn.shpear.okhttp3.Response;
 
 import static cn.pear.cartoon.ui.HomeActivity.REFRESH_URLEDITTEXT;
 
@@ -63,7 +79,9 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
     InputMethodManager imm;
 
     UrlAdapter adapter;
+    public static List<SearchKeyWords> urlList = new ArrayList<SearchKeyWords>();
     Handler handler;
+    AsyncTask urlSuggestionTask;
 
     public void setActivity(TestAty activity) {
         this.activity = activity;
@@ -144,6 +162,7 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                     String url = activity.getMwebview().getUrl();
 
                     if (hasFocus) {
+                        activity.getMwebview().setVisibility(View.GONE);
                         setEditState(true);
                         aferTextChange();
                     } else {
@@ -188,7 +207,11 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                 switch (msg.what){
                     case REFRESH_URLEDITTEXT:
                         activity.inputAssistView.setVisibility(View.VISIBLE);
+                        activity.inputAssistView.UrlSuggestion.setVisibility(View.VISIBLE);
                         activity.inputAssistView.deleteSearch.setVisibility(VISIBLE);
+                        adapter = new UrlAdapter(activity,urlList);
+                        activity.inputAssistView.UrlSuggestion.setAdapter(adapter);
+
 //                        if(TextUtils.isEmpty(tabView.getUrl())&&adapter.getCount()>0){
 //                            tabView.getDeleteSearch().setVisibility(View.VISIBLE);
 //                        }else {
@@ -238,34 +261,26 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
             rlRefresh.setVisibility(View.VISIBLE);
             rlDeleteAndRefresh.setVisibility(View.VISIBLE);
         }
+
         if(!(keyWord.equals(activity.getMwebview().getTitle())||keyWord.equals(activity.getMwebview().getUrl()))){
+            urlSuggestionTask = new AsyncTask() {
+                @Override
+                protected Object doInBackground(Object[] params) {
+                    getUrlList(keyWord);
 
-            Message msg = Message.obtain();
-            msg.obj = keyWord;
-            msg.what = REFRESH_URLEDITTEXT;
-            handler.sendMessage(msg);
-
-//            urlSuggestionTask=new AsyncTask() {
-//                @Override
-//                protected Object doInBackground(Object[] params) {
-//                    c = BookmarksProviderWrapper.getUrlSuggestions(sparrowActivity.getApplicationContext(), keyWord,
-//                            PreferenceManager.getDefaultSharedPreferences(sparrowActivity).getBoolean(Constants.PREFERENCE_USE_WEAVE, false));
-//                    Message msg = Message.obtain();
-//                    msg.obj = keyWord;
-//                    msg.what = REFRESH_URLEDITTEXT;
-//                    handler.sendMessage(msg);
-//                    return null;
-//
-//                }
-//            };
-////                urlSuggestionTask =  SuggestionAsyncTask.getInatance(c,lHandler,sparrowActivity,keyWord,REFRESH_URLEDITTEXT);
-//            urlSuggestionTask.execute();
-//            tabView.holder.urlSuggestionList.setVisibility(View.VISIBLE);
+                    if (!StringUtil.isEmpty(keyWord)){
+                        Message msg = Message.obtain();
+                        msg.obj = keyWord;
+                        msg.what = REFRESH_URLEDITTEXT;
+                        handler.sendMessage(msg);
+                    }
+                    return null;
+                }
+            };
+            urlSuggestionTask.execute();
 
         }else{
             btnCancel.setText("取消");
-//            tabView.holder.urlSuggestionList.setVisibility(View.GONE);
-//            tabView.getDeleteSearch().setVisibility(View.GONE);
         }
     }
 
@@ -353,7 +368,10 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
         }
     }
 
-    private void goSearch(String stringWord){
+    public void goSearch(String stringWord){
+        if (activity.inputAssistView.isShown()){
+            activity.inputAssistView.setVisibility(View.GONE);
+        }
         String url1 = stringWord;//现将stringWord赋给url1判断是都已HTTP://或者HTTPS开头 如果没有则给URL1赋头
         if (!(url1.contains("http://") || url1.contains("https://"))) {
             url1 = "http://" + url1+"/";
@@ -384,7 +402,41 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
             }
 
         }
-
         activity.getMwebview().loadUrl(targetUrl);
+        activity.getMwebview().setVisibility(View.VISIBLE);
+    }
+
+
+    // 获取热门词
+    public static void getUrlList(String word){
+        word = word.replace(" ","");
+        urlList.clear();
+        OkHttpClient mOkHttpClient = OkhttpUtil.getInstance().getOkHttpClient();
+        Request request = new Request.Builder()
+                .url(Constants.URL_SUGGESTION_GET + word)
+                .build();
+        Call call = mOkHttpClient.newCall(request);
+        Response response = null;
+        Log.i("test",Constants.URL_SUGGESTION_GET + word);
+
+        try {
+            response = call.execute();
+            JSONObject jsonObject = new JSONObject(response.body().string());
+            JSONObject jsonObject1 = jsonObject.getJSONObject("Data");
+            JSONArray jsonArray = null;
+            jsonArray = jsonObject1.getJSONArray("s");
+            SearchKeyWords searchKeyWords ;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                searchKeyWords = new SearchKeyWords();
+                searchKeyWords.setKeywords(jsonArray.get(i).toString());
+                urlList.add(searchKeyWords);
+                searchKeyWords = null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

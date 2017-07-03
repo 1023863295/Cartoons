@@ -17,15 +17,15 @@ public class SearchKeyWords {
     @Property(nameInDb = "keywords")
     private String keywords;
 
-    @Property(nameInDb = "url")
-    protected String url;
+    @Property(nameInDb = "type")
+    protected int type;
 
-    public String getUrl() {
-        return this.url;
+    public int getType() {
+        return this.type;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getKeywords() {
@@ -44,14 +44,15 @@ public class SearchKeyWords {
         this.id = id;
     }
 
-    @Generated(hash = 2000214292)
-    public SearchKeyWords(Long id, String keywords, String url) {
+    @Generated(hash = 632565145)
+    public SearchKeyWords(Long id, String keywords, int type) {
         this.id = id;
         this.keywords = keywords;
-        this.url = url;
+        this.type = type;
     }
 
     @Generated(hash = 1525239630)
     public SearchKeyWords() {
     }
+
 }

@@ -11,6 +11,8 @@ import android.webkit.WebView;
 
 import cn.pear.cartoon.R;
 import cn.pear.cartoon.base.BaseAty;
+import cn.pear.cartoon.components.DetailWeChromeClient2;
+import cn.pear.cartoon.components.DetailWebViewClient;
 import cn.pear.cartoon.global.Constants;
 import cn.pear.cartoon.tools.WebConfig;
 import cn.pear.cartoon.ui.DetailAty;
@@ -34,6 +36,9 @@ public class TestAty extends BaseAty implements View.OnClickListener{
 
 
     private Boolean SoftInputState = false; //软键盘状态
+
+    private DetailWebViewClient webViewClient;
+    private DetailWeChromeClient2 webChromeClient;
 
     private Handler mHandler = new Handler(){
         @Override
@@ -75,6 +80,14 @@ public class TestAty extends BaseAty implements View.OnClickListener{
         mwebview = (WebView)findViewById(R.id.test_webview);
         WebConfig.setDefaultConfig(mwebview,this);
         mwebview.loadUrl(Constants.URL_HOST);
+        webViewClient = new DetailWebViewClient();
+        mwebview.setWebViewClient(webViewClient);
+
+        webChromeClient = new DetailWeChromeClient2();
+        mwebview.setWebChromeClient(webChromeClient);
+
+
+
 
         browserSearchView = (BrowserSearchView)findViewById(R.id.test_search_view);
         browserSearchView.setActivity(this);
@@ -146,6 +159,14 @@ public class TestAty extends BaseAty implements View.OnClickListener{
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mwebview.canGoBack()){
+            mwebview.goBack();
+            return;
+        }
+        super.onBackPressed();
+    }
 
     public WebView getMwebview() {
         return mwebview;

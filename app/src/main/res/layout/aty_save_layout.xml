@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#f9f9f9"
         android:gravity="center_horizontal"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <LinearLayout
@@ -68,7 +69,6 @@
         android:id="@+id/save_history_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/history_title"
         android:background="#FFFFFF">
     </FrameLayout>
 

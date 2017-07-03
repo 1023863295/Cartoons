@@ -1,15 +1,17 @@
 package cn.pear.cartoon.adapter;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 import cn.pear.cartoon.R;
+import cn.pear.cartoon.bean.SearchKeyWords;
+import cn.pear.cartoon.test.TestAty;
 
 /**
  * 作者：liuliang
@@ -17,10 +19,10 @@ import cn.pear.cartoon.R;
  * 邮箱：liang.liu@zmind.cn
  */
 public class UrlAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<Object> list;
+    private TestAty mContext;
+    private List<SearchKeyWords> list;
 
-    public UrlAdapter(Context mContext, List<Object> list) {
+    public UrlAdapter(TestAty mContext, List<SearchKeyWords> list) {
         this.mContext = mContext;
         this.list = list;
     }
@@ -28,27 +30,27 @@ public class UrlAdapter extends BaseAdapter {
     public UrlAdapter() {
     }
 
-    public void setList(List<Object> list) {
+    public void setList(List<SearchKeyWords> list) {
         this.list = list;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null){
             convertView = View.inflate(mContext, R.layout.url_autocomplete_line,null);
@@ -56,9 +58,20 @@ public class UrlAdapter extends BaseAdapter {
             holder.autoCompleteTitle = (TextView)convertView.findViewById(R.id.AutocompleteTitle);
             holder.autoCompleteUrl = (TextView)convertView.findViewById(R.id.AutocompleteUrl);
             holder.iconView = (ImageView)convertView.findViewById(R.id.AutocompleteImageView);
+            holder.rlGo = (RelativeLayout)convertView.findViewById(R.id.rl_urlsuggestion_go);
+            convertView.setTag(holder);
         }else{
-            convertView = View.inflate(mContext, R.layout.url_autocomplete_line,null);
+            holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.autoCompleteTitle.setText(list.get(position).getKeywords());
+
+        holder.rlGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.browserSearchView.editTextUrl.setText(mContext.browserSearchView.urlList.get(position).getKeywords());
+            }
+        });
 
         return convertView;
     }
@@ -67,5 +80,6 @@ public class UrlAdapter extends BaseAdapter {
         public TextView autoCompleteUrl;
         public ImageView iconView ;
         public TextView autoCompleteTitle ;
+        public RelativeLayout rlGo;
     }
 }

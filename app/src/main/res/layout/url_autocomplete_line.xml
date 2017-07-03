@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="horizontal"
-    android:background="@color/white"
-    >
+    android:background="@color/white">
 
     <ImageView
         android:layout_width="match_parent"
@@ -25,8 +24,9 @@
             android:id="@+id/AutocompleteImageView"
             android:layout_width="15dp"
             android:layout_height="15dp"
+            android:src="@drawable/ico_search"
             android:layout_gravity="center_vertical"
-             >
+            >
         </ImageView>
 
         <RelativeLayout
@@ -45,7 +45,7 @@
                 android:singleLine="true"
                 android:text="@+id/AutocompleteTitle"
                 android:textColor="#333333"
-               >
+                >
             </TextView>
 
             <TextView
@@ -69,6 +69,7 @@
         </RelativeLayout>
 
     </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/rl_urlsuggestion_go"

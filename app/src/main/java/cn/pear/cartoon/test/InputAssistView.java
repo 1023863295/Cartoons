@@ -49,7 +49,12 @@ public class InputAssistView extends RelativeLayout {
         UrlSuggestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                testAty.inputAssistView.setVisibility(View.GONE);
+                testAty.browserSearchView.editTextUrl.clearFocus();
                 testAty.browserSearchView.setSoftInputHide();
+                testAty.browserSearchView.goSearch(testAty.browserSearchView.urlList.get(position).getKeywords());
+                testAty.browserSearchView.editTextUrl.setText(testAty.browserSearchView.urlList.get(position).getKeywords());
+                testAty.browserSearchView.editTextUrl.setSelection(testAty.browserSearchView.editTextUrl.getText().length());
             }
         });
 
