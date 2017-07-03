@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textHelper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:orientation="horizontal"
+    >
+
+    <Button
+    android:id="@+id/btn_xiexian"
+    android:layout_width="0dip"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@color/titleBg"
+    android:gravity="center"
+    android:onClick="doClick"
+    android:text="www."
+    android:textColor="@color/newTextColor"
+    android:textStyle="normal"
+    android:typeface="sans" />
+
+    <Button
+    android:id="@+id/btn_dian"
+    android:layout_width="0dip"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@color/titleBg"
+    android:gravity="center"
+    android:onClick="doClick"
+    android:text="."
+    android:textColor="@color/newTextColor"
+    android:typeface="sans" />
+
+    <Button
+    android:id="@+id/btn_com"
+    android:layout_width="0dip"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@color/titleBg"
+    android:gravity="center"
+    android:onClick="doClick"
+    android:text=".com"
+    android:textColor="@color/newTextColor"
+    android:typeface="sans" />
+
+    <Button
+    android:id="@+id/btn_cn"
+    android:layout_width="0dip"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@color/titleBg"
+    android:gravity="center"
+    android:onClick="doClick"
+    android:text=".cn"
+    android:textColor="@color/newTextColor"
+    android:typeface="sans" />
+
+    <Button
+    android:id="@+id/btn_net"
+    android:layout_width="0dip"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@color/titleBg"
+    android:gravity="center"
+    android:onClick="doClick"
+    android:text=".net"
+    android:textColor="@color/newTextColor"
+    android:typeface="sans" />
+
+</LinearLayout>

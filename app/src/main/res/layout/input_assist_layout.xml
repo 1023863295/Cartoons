@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/home_top_search"
+    android:layout_above="@+id/bottom_linear"
+    android:background="@color/white">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:overScrollMode="never">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <cn.pear.cartoon.view.SearchListView
+                android:id="@+id/UrlSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:divider="@null">
+
+            </cn.pear.cartoon.view.SearchListView>
+
+            <include
+                android:id="@+id/deleteSearch"
+                android:visibility="gone"
+                layout="@layout/autocomplete_deleteitem" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/input_linear_helper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/input_btn_www"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/titleBg"
+            android:gravity="center"
+            android:onClick="doClick"
+            android:text="www."
+            android:textColor="@color/newTextColor"
+            android:textStyle="normal"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/input_btn_dot"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/titleBg"
+            android:gravity="center"
+            android:onClick="doClick"
+            android:text="."
+            android:textColor="@color/newTextColor"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/input_btn_com"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/titleBg"
+            android:gravity="center"
+            android:onClick="doClick"
+            android:text=".com"
+            android:textColor="@color/newTextColor"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/input_btn_cn"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/titleBg"
+            android:gravity="center"
+            android:onClick="doClick"
+            android:text=".cn"
+            android:textColor="@color/newTextColor"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/input_btn_net"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/titleBg"
+            android:gravity="center"
+            android:onClick="doClick"
+            android:text=".net"
+            android:textColor="@color/newTextColor"
+            android:typeface="sans" />
+    </LinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

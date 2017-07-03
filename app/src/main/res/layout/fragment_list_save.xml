@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlHistory"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rl_bookmark_bottom"
+        android:layout_width="match_parent"
+        android:background="@color/titleBg"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_height="48dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/spide_line"/>
+        <TextView
+            android:id="@+id/bookmark_selectall"
+            android:layout_width="wrap_content"
+            android:text="全选"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/newTextColor"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/bookmark_history_delete"
+            android:layout_width="wrap_content"
+            android:text="删除"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:textColor="@color/defaultTextColor"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/save_bookmarks_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:layout_above="@id/rl_bookmark_bottom"
+        android:cacheColorHint="#00000000"
+        android:listSelector="#00000000" />
+    <RelativeLayout
+        android:id="@+id/rlNoBookmarkS"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#FFFFFF"
+        >
+        <ImageView
+            android:id="@+id/imgEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/history_noun_1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp"
+            />
+
+        <TextView
+            android:id="@+id/BookmarksListActivity.EmptyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/imgEmpty"
+            android:textColor="#BFBFBF"
+            android:gravity="center_horizontal"
+            android:text="@string/BookmarksListActivity.Empty" />
+    </RelativeLayout>
+    
+
+
+
+</RelativeLayout>

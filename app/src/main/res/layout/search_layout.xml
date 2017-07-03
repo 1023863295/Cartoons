@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="96px"
+    android:paddingTop="13px"
+    android:paddingBottom="13px"
+    android:background="@color/top_title_bg">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/search_rl_bg_edit"
+        android:layout_width="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/search_corner_white_gray"
+        android:layout_toLeftOf="@+id/search_text_cancel"
+        android:layout_toStartOf="@+id/search_text_cancel"
+        android:layout_marginLeft="11.3dp"
+        android:layout_marginRight="11.3dp"
+        android:layout_height="70px">
+
+        <RelativeLayout
+            android:id="@+id/search_rl_clear"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/lianxiang_bird_1" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/search_url_img"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/home_14_white" />
+
+        <ImageButton
+            android:id="@+id/search_btn_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="5dp"
+            android:background="@drawable/home_9_white" />
+
+        <cn.pear.cartoon.view.EditTextPreIme
+            android:id="@+id/search_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_toRightOf="@id/search_url_img"
+            android:layout_toLeftOf="@id/search_rl_clear"
+            android:background="#00000000"
+            android:completionThreshold="1"
+            android:dropDownHeight="wrap_content"
+            android:dropDownHorizontalOffset="-90dp"
+            android:dropDownVerticalOffset="10dp"
+            android:dropDownWidth="match_parent"
+            android:gravity="center_vertical"
+            android:textCursorDrawable="@drawable/textcursor_bg"
+            android:hint="搜索或输入网址"
+            android:inputType=""
+            android:imeOptions="actionSearch"
+            android:paddingLeft="8dp"
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@color/text_gray"
+            android:textColorHint="#ffffff"
+            android:textSize="14sp"/>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <TextView
+        android:id="@+id/search_text_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        android:padding="5dp"
+        android:layout_marginRight="11.3dp"
+        android:visibility="gone"
+        android:text="取消"/>
+
+</com.zhy.autolayout.AutoRelativeLayout>

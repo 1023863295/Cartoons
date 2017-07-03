@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F00">
+
+    <Button
+        android:id="@+id/right_fragment_btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="add"/>
+    <Button
+        android:id="@+id/right_fragment_btn_delete"
+        android:layout_below="@id/right_fragment_btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="delete"/>
+    <Button
+        android:id="@+id/right_fragment_btn_select"
+        android:layout_below="@id/right_fragment_btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="select"/>
+    <Button
+        android:id="@+id/right_fragment_btn_update"
+        android:layout_below="@id/right_fragment_btn_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="update"/>
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

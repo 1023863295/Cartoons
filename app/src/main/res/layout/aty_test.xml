@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <cn.pear.cartoon.test.BrowserSearchView
+        android:id="@+id/test_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="52dp">
+    </cn.pear.cartoon.test.BrowserSearchView>
+
+
+    <WebView
+        android:id="@+id/test_webview"
+        android:layout_below="@id/test_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
+
+    <cn.pear.cartoon.test.InputAssistView
+        android:id="@+id/test_input_assit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_below="@id/test_search_view">
+    </cn.pear.cartoon.test.InputAssistView>
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="titleBg">#f9f9f9</color>
+    <color name="spide_line">#E0E0E0</color>
+    <color name="newTextColor">#333333</color>
+    <color name="defaultTextColor">#b4b4b4</color>
+    <color name="mainBg">#ffffff</color>
+
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent2">#77000000</color>
+    <color name="gray">#66000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="bottomPressBg">#f2f2f2</color>
+    <color name="bottomUnPressBg">#f9f9f9</color>
+
+    <color name="top_title_bg">#de3031</color>
+    <color name="tools_gray_bg">#f8f8f8</color>
+    <color name="colorRadio">#42a5f5</color>
+
+
+    <!-- 灰色字体-->
+    <color name="text_gray">#4e4e4e</color>
+</resources>

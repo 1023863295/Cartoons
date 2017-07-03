@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/detail_rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:paddingBottom="13px"
+        android:paddingTop="13px"
+        android:paddingRight="11.3px"
+        android:paddingLeft="11.3px"
+        android:background="@color/top_title_bg">
+
+        <cn.pear.cartoon.view.EditTextPreIme
+            android:id="@+id/detail_edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="70px"
+            android:layout_marginRight="100px"
+            android:layout_centerVertical="true"
+            android:background="@drawable/search_corner_white_gray"
+            android:completionHintView="@drawable/ico_fresh"
+            android:completionThreshold="1"
+            android:gravity="center_vertical"
+            android:text="搜索或输入网址"
+            android:inputType=""
+            android:paddingLeft="8dp"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true"
+            android:lines="1"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/detail_img_refresh"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon"/>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <WebView
+        android:id="@+id/detail_webview"
+        android:layout_below="@id/detail_rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+
+</com.zhy.autolayout.AutoRelativeLayout>

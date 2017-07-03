@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.pear.cartoon.ui.HomeActivity">
+
+    <include
+        android:id="@+id/home_top_search"
+        layout="@layout/search_layout"></include>
+
+    <LinearLayout
+        android:id="@+id/home_linear_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/home_top_search"
+        android:layout_above="@+id/bottom_linear"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/home_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/home_top_search"
+        android:layout_above="@+id/bottom_linear">
+    </WebView>
+
+    <include
+        android:id="@+id/main_input_assit"
+        layout="@layout/input_assist_layout"
+        android:visibility="gone"></include>
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/bottom_linear"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/bottom_btn_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/buttons_bottom"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_1_back"/>
+        <ImageButton
+            android:id="@+id/bottom_btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttons_bottom"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_2_next"/>
+        <ImageButton
+            android:id="@+id/bottom_btn_tools"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttons_bottom"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cartoon_tool"/>
+        <ImageButton
+            android:id="@+id/bottom_btn_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttons_bottom"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_4"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/setting_top"
+        layout="@layout/head_top_layout"></include>
+
+    <RelativeLayout
+        android:id="@+id/set_rl_feedback"
+        android:layout_below="@id/setting_top"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="100px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:text="意见反馈"
+            android:textColor="@color/newTextColor"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_alignParentBottom="true"
+            android:background="#e0e0e0"
+            android:padding="10dp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/home_2_next" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/set_rl_about"
+        android:layout_below="@id/set_rl_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:text="关于我们"
+            android:textColor="@color/newTextColor"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_alignParentBottom="true"
+            android:background="#e0e0e0"
+            android:padding="10dp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/home_2_next" />
+
+    </RelativeLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

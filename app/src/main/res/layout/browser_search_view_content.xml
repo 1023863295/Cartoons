@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:paddingBottom="10dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/top_title_bg">
+
+    <RelativeLayout
+        android:id="@+id/head_search_body"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="35dp"
+        android:layout_marginLeft="11.3dp"
+        android:layout_marginRight="11.3dp"
+        android:layout_toLeftOf="@+id/search_btn_go"
+        android:layout_toStartOf="@+id/search_btn_go"
+        android:background="@drawable/search_corner_white_gray"
+        android:dropDownHeight="wrap_content"
+        android:dropDownWidth="match_parent"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/delete_refresh_relative"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/search_rl_delete"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_clear_ipt"
+                    android:layout_width="14dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/lianxiang_bird_1" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/search_rl_refresh"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="5dp"
+                android:clickable="true"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/refresh_image"
+                    android:layout_width="14dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/a3_3_white" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/search_url_img_icon"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/home_14_white" />
+
+        <cn.pear.cartoon.view.EditTextPreIme
+            android:id="@+id/search_edit_url"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/delete_refresh_relative"
+            android:layout_toRightOf="@id/search_url_img_icon"
+            android:background="#00000000"
+            android:completionHintView="@drawable/ico_fresh"
+            android:completionThreshold="1"
+            android:dropDownHeight="wrap_content"
+            android:dropDownHorizontalOffset="-90dp"
+            android:dropDownVerticalOffset="10dp"
+            android:dropDownWidth="match_parent"
+            android:focusable="true"
+            android:hint="搜索或输入网址"
+            android:inputType=""
+            android:imeOptions="actionSearch"
+            android:paddingLeft="8dp"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="14sp">
+
+        </cn.pear.cartoon.view.EditTextPreIme>
+
+        <LinearLayout
+            android:id="@+id/search_linearLayout_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingRight="5dp">
+            <ImageButton
+                android:id="@+id/search_img_btn_scanBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_9_white" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/search_btn_go"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone">
+    </Button>
+</RelativeLayout>
+
+
+

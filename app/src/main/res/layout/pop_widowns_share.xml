@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent2">
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/pop_widowns_share_linear"
+        android:layout_width="match_parent"
+        android:layout_height="290px"
+        android:background="@color/tools_gray_bg"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:paddingLeft="40px"
+            android:paddingRight="40px"
+            android:layout_marginTop="20px"
+            android:layout_marginBottom="20px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/share_text_weixin_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/Tools_Text_style"
+                android:drawableTop="@drawable/share_1"
+                android:text="@string/weixin_circle_name"/>
+            <TextView
+                android:id="@+id/share_text_weixin"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/share_2"
+                style="@style/Tools_Text_style"
+                android:text="@string/weixin_name"/>
+            <TextView
+                android:id="@+id/share_text_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/share_3"
+                style="@style/Tools_Text_style"
+                android:text="@string/QQ_name"/>
+            <TextView
+                android:id="@+id/share_text_qq_zone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/share_4"
+                style="@style/Tools_Text_style"
+                android:text="@string/QQ_ZONE_name"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#dddddd">
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/share_rl_close"
+            android:layout_width="match_parent"
+            android:layout_height="99px">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/mental_tool_close"/>
+        </RelativeLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/share_rl_other"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/pop_widowns_share_linear" />
+
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

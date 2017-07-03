@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">追漫神器</string>
+
+    <string name="weixin_name">微信好友</string>
+    <string name="weixin_circle_name">微信朋友圈</string>
+    <string name="QQ_name">QQ</string>
+    <string name="QQ_ZONE_name">QQ空间</string>
+    <string name="sina_weibo_name">新浪微博</string>
+
+
+    <string name="Commons.Yes">确认</string>
+    <string name="Commons.No">取消</string>
+    <string name="Commons.ClearHistory">清除数据</string>
+    <string name="Commons.ClearingHistory">正在清除数据&#8230;</string>
+    <string name="Commons.NoUndoMessage">记录删除后无法恢复，是否继续？</string>
+
+
+
+    <string name="ProxySettings.EnablingProxySettings">Enabling proxy settings&#8230;</string>
+    <string name="ProxySettings.ErrorProxySettingsNotValid">Invalid system proxy settings.</string>
+    <string name="ProxySettings.ErrorProxyServerNotReachable">Proxy server is not reachable.</string>
+    <string name="ProxySettings.ErrorProxyInternetNotReachable">Cannot access the Web through the specified proxy server.</string>
+    <string name="ProxySettings.ProxySettingsEnabled">Proxy settings succesfully enabled.</string>
+
+
+    <string name="need_permission">缺少权限!请去设置-应用管理开放相关权限。</string>
+
+    <string name="bottom_tools_save">收藏/历史</string>
+    <string name="bottom_tools_share">分享</string>
+    <string name="bottom_tools_set">设置</string>
+    <string name="bottom_tools_look">无痕浏览</string>
+
+    <string name="BookmarksListActivity.Empty">暂无收藏记录</string>
+    <string name="HistoryListActivity.Empty">暂无历史记录</string>
+</resources>

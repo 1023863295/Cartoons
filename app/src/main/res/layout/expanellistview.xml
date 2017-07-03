@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ExpandableListView
+        android:id="@+id/List"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:overScrollMode="never"
+        android:cacheColorHint="#00000000"
+        android:listSelector="#00000000" />
+
+    <RelativeLayout
+        android:id="@+id/rlNoHitorys"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"
+        android:background="#FFFFFF"
+        >
+        <ImageView
+            android:id="@+id/imgEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/history_noun_1"
+            android:layout_marginTop="120dp"
+            />
+
+        <TextView
+            android:id="@+id/EmptyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/imgEmpty"
+            android:textColor="#BFBFBF"
+            android:gravity="center_horizontal"
+            android:text="@string/HistoryListActivity.Empty" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
