@@ -3,6 +3,8 @@ package cn.pear.cartoon.tools;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import cn.pear.cartoon.R;
 
@@ -38,4 +40,17 @@ public class ApplicationUtils {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    public static String getVerName(Context mContext){
+        try {
+            PackageManager packageManager = mContext.getApplicationContext().getPackageManager();
+            PackageInfo packageInfo =packageManager.getPackageInfo(mContext.getApplicationContext().getPackageName(),0);
+            String ver_name =packageInfo.versionName;
+            return ver_name;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
 }

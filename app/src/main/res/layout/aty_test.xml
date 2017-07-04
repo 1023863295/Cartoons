@@ -10,10 +10,14 @@
         android:layout_height="52dp">
     </cn.pear.cartoon.test.BrowserSearchView>
 
+    <include
+        android:id="@+id/test_bottom_bar_view"
+        layout="@layout/bottom_bar_layout"></include>
 
     <WebView
         android:id="@+id/test_webview"
         android:layout_below="@id/test_search_view"
+        android:layout_above="@id/test_bottom_bar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </WebView>
@@ -36,4 +40,7 @@
         android:visibility="gone"
         android:layout_below="@id/test_search_view">
     </cn.pear.cartoon.test.InputAssistView>
+
+
+
 </com.zhy.autolayout.AutoRelativeLayout>

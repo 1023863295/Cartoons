@@ -1,5 +1,6 @@
 package cn.pear.cartoon.ui;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -55,7 +56,8 @@ public class SettingAty extends BaseAty implements View.OnClickListener{
                 finish();
                 break;
             case R.id.set_rl_about:
-                ToastUtil.showLongToast(this,"正在开发中");
+                Intent intent = new Intent(this, AboutUsAty.class);
+                startActivity(intent);
                 break;
             case R.id.set_rl_feedback:
                 ToastUtil.showLongToast(this,"正在开发中");

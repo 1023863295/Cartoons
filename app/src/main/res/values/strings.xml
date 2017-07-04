@@ -29,6 +29,7 @@
     <string name="bottom_tools_share">分享</string>
     <string name="bottom_tools_set">设置</string>
     <string name="bottom_tools_look">无痕浏览</string>
+    <string name="about_us">关于我们</string>
 
     <string name="BookmarksListActivity.Empty">暂无收藏记录</string>
     <string name="HistoryListActivity.Empty">暂无历史记录</string>

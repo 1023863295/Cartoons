@@ -119,10 +119,7 @@ public class SaveListFragment extends Fragment implements View.OnClickListener{
      */
     private void fillData(){
         listCartoon.clear();
-        for (int i = 0; i < 20; i++) {
-            listCartoon.addAll(GreenDaoUtils.getSingleTon().getmDaoSession().getCartoonDao().loadAll());
-//            listCartoon = GreenDaoUtils.getSingleTon().getmDaoSession().getCartoonDao().loadAll();
-        }
+        listCartoon.addAll(GreenDaoUtils.getSingleTon().getmDaoSession().getCartoonDao().loadAll());
         adapter=new SaveBookMarksItemAdapter(listCartoon);
         if(!(adapter.getItemCount()> 0)){
             rlNoBookmarkS.setVisibility(View.VISIBLE);
@@ -191,8 +188,8 @@ public class SaveListFragment extends Fragment implements View.OnClickListener{
                                 }
                             }
                             adapter.refreshMap();
-                            fillData();
                         }
+                        fillData();
                         adapter.notifyDataSetChanged();
                     }
                 });

@@ -70,6 +70,7 @@ public class InputAssistView extends RelativeLayout {
             @Override
             public void onClick(View v) {
                 testAty.browserSearchView.clearHistory();
+                deleteSearch.setVisibility(View.GONE);
             }
         });
 

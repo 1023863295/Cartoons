@@ -37,7 +37,7 @@ public class JsCallNative {
                 //数据库数据不存在
                 Cartoon cartoon = new Cartoon(null, title,url);
                 long d = GreenDaoUtils.getSingleTon().getmDaoSession().getCartoonDao().insert(cartoon);
-                ToastUtil.showLongToast(mCOntext,"收藏成功"+d);
+                ToastUtil.showLongToast(mCOntext,"收藏成功");
             }else{
                 ToastUtil.showLongToast(mCOntext,"已经收藏");
             }

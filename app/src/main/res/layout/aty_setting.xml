@@ -14,10 +14,10 @@
         android:layout_below="@id/setting_top"
         android:layout_width="match_parent"
         android:background="@color/white"
+        android:visibility="gone"
         android:layout_height="100px">
 
         <TextView
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

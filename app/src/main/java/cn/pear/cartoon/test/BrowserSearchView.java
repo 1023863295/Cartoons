@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.greendao.query.QueryBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,33 +43,35 @@ import cn.pear.barcodescanner.CaptureActivity;
 import cn.pear.cartoon.R;
 import cn.pear.cartoon.adapter.UrlAdapter;
 import cn.pear.cartoon.bean.SearchKeyWords;
+import cn.pear.cartoon.bean.SearchKeyWordsDao;
 import cn.pear.cartoon.db.GreenDaoUtils;
 import cn.pear.cartoon.global.Constants;
 import cn.pear.cartoon.tools.ApplicationUtils;
 import cn.pear.cartoon.tools.OkhttpUtil;
 import cn.pear.cartoon.tools.PermissionUtil;
 import cn.pear.cartoon.tools.StringUtil;
-import cn.pear.cartoon.ui.HomeActivity;
 import cn.pear.cartoon.view.EditTextPreIme;
 import cn.shpear.okhttp3.Call;
 import cn.shpear.okhttp3.OkHttpClient;
 import cn.shpear.okhttp3.Request;
 import cn.shpear.okhttp3.Response;
 
-import static cn.pear.cartoon.ui.HomeActivity.REFRESH_URLEDITTEXT;
-
 /**
  * Created by liuliang on 2017/6/30.
  */
 
 public class BrowserSearchView extends FrameLayout implements View.OnClickListener{
+    public static final int REFRESH_URLEDITTEXT=300;
+    public static final int NO_HISTORT=301;
+    public static final int HAS_HISTORT=302;
+
     private RelativeLayout searchRlBody;
     private ImageView searchUrlImgICon;
 
     private RelativeLayout rlDeleteAndRefresh;
     private RelativeLayout rlDelete;
-    private RelativeLayout rlRefresh;
     public EditTextPreIme editTextUrl;
+    private RelativeLayout rlRefresh;
     private LinearLayout linearScan;
     private ImageButton imgBtnScan;
     private Button btnCancel;
@@ -76,12 +79,12 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
     private String stringWord = "";
     private String stringUrl = "";
 
-    private TestAty activity;
+    private static TestAty activity;
     InputMethodManager imm;
 
     UrlAdapter adapter;
     public static List<SearchKeyWords> urlList = new ArrayList<SearchKeyWords>();
-    Handler handler;
+    static Handler handler;
     AsyncTask urlSuggestionTask;
 
     public void setActivity(TestAty activity) {
@@ -163,7 +166,12 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                     String url = activity.getMwebview().getUrl();
 
                     if (hasFocus) {
+                        if (mode == 2){
+                            editTextUrl.setText(activity.getMwebview().getUrl());
+                            return;
+                        }
                         activity.getMwebview().setVisibility(View.GONE);
+                        activity.linearBottomBar.setVisibility(View.GONE);
                         setEditState(true);
                         aferTextChange();
                     } else {
@@ -174,6 +182,9 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
 
                         linearScan.setVisibility(View.VISIBLE);
                         rlDeleteAndRefresh.setVisibility(View.GONE);
+                        activity.inputAssistView.setVisibility(View.GONE);
+                        activity.getMwebview().setVisibility(View.VISIBLE);
+                        activity.linearBottomBar.setVisibility(View.VISIBLE);
                     }
 
                     if (InputAssistView.isSuggestion) {
@@ -209,15 +220,19 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                     case REFRESH_URLEDITTEXT:
                         activity.inputAssistView.setVisibility(View.VISIBLE);
                         activity.inputAssistView.UrlSuggestion.setVisibility(View.VISIBLE);
-                        activity.inputAssistView.deleteSearch.setVisibility(VISIBLE);
                         adapter = new UrlAdapter(activity,urlList);
                         activity.inputAssistView.UrlSuggestion.setAdapter(adapter);
+                        break;
+                    case NO_HISTORT:
+                        activity.inputAssistView.deleteSearch.setVisibility(View.GONE);
+                        break;
+                    case HAS_HISTORT:
+                        activity.inputAssistView.deleteSearch.setVisibility(View.VISIBLE);
 
-//                        if(TextUtils.isEmpty(tabView.getUrl())&&adapter.getCount()>0){
-//                            tabView.getDeleteSearch().setVisibility(View.VISIBLE);
-//                        }else {
-//                            tabView.getDeleteSearch().setVisibility(View.GONE);
-//                        }
+                        activity.inputAssistView.setVisibility(View.VISIBLE);
+                        activity.inputAssistView.UrlSuggestion.setVisibility(View.VISIBLE);
+                        adapter = new UrlAdapter(activity,urlList);
+                        activity.inputAssistView.UrlSuggestion.setAdapter(adapter);
                         break;
                 }
             }
@@ -290,7 +305,7 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
         //--先检测权限
         String[] strings= PermissionUtil.getInstance().checkCameraPermission(activity);
         if(strings!=null&&strings.length>0){
-            PermissionUtil.getInstance().requestNeedPermission(activity,strings, HomeActivity.PERMISSION_QR_CODE);
+            PermissionUtil.getInstance().requestNeedPermission(activity,strings, TestAty.PERMISSION_QR_CODE);
         }else {
             Toast.makeText(activity,"扫描二维码",Toast.LENGTH_SHORT).show();
             Intent intent =new Intent(activity, CaptureActivity.class);
@@ -329,6 +344,8 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
             editTextUrl.clearFocus();
         } else {
             editTextUrl.clearFocus();
+            activity.getMwebview().setVisibility(View.VISIBLE);
+            activity.linearBottomBar.setVisibility(View.VISIBLE);
         }
     }
 
@@ -345,6 +362,8 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().deleteAll();
+                        adapter.clear();
+                        adapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -406,16 +425,23 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
         saveKeywords(stringWord);
         activity.getMwebview().loadUrl(targetUrl);
         activity.getMwebview().setVisibility(View.VISIBLE);
+        activity.linearBottomBar.setVisibility(View.VISIBLE);
     }
 
     private void saveKeywords(String words){
         SearchKeyWords keyWords = new SearchKeyWords();
         keyWords.setKeywords(stringWord);
-        if (true){
-            //如果数据库已经存在，不插入
-            GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().insert(keyWords);
+
+        QueryBuilder qb= GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().queryBuilder();
+        List<SearchKeyWords> searchList = qb.where(SearchKeyWordsDao.Properties.Keywords.eq(words)).build().list();
+        if (searchList == null || searchList.size()==0){
+            //数据库数据不存在
+            SearchKeyWords search = new SearchKeyWords(null, words,0);
+
+            long d = GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().insert(search);;
+//            ToastUtil.showLongToast(activity,"网址收藏成功");
         }else{
-            GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().insert(keyWords);
+//            ToastUtil.showLongToast(activity,"网址已经收藏");
         }
     }
 
@@ -424,6 +450,25 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
     public static void getUrlList(String word){
         word = word.replace(" ","");
         urlList.clear();
+
+        QueryBuilder qb= GreenDaoUtils.getSingleTon().getmDaoSession().getSearchKeyWordsDao().queryBuilder();
+        List<SearchKeyWords> historyList = qb.where(SearchKeyWordsDao.Properties.Keywords.like("%" + word + "%")).list();
+
+        if (StringUtil.isEmpty(word)){
+            if (historyList == null || historyList.size()==0){
+                //没有历史记录，
+                Message msg = Message.obtain();
+                msg.what = NO_HISTORT;
+                handler.sendMessage(msg);
+            }else{
+                //有历史记录
+                urlList.addAll(historyList);
+                Message msg = Message.obtain();
+                msg.what = HAS_HISTORT;
+                handler.sendMessage(msg);
+            }
+        }
+
         OkHttpClient mOkHttpClient = OkhttpUtil.getInstance().getOkHttpClient();
         Request request = new Request.Builder()
                 .url(Constants.URL_SUGGESTION_GET + word)
@@ -451,5 +496,24 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
             e.printStackTrace();
         }
 
+    }
+
+    //0代表 ：一种是搜索模式,没有获取焦点，1 搜索模式,获取焦点  2：代表标题显示模式
+    public int mode ;
+    public void setMode(int mode){
+        this.mode = mode;
+        if(mode == 0){
+            editTextUrl.clearFocus();
+            searchUrlImgICon.setImageResource(R.drawable.home_14_white);
+        }else if(mode == 1){
+
+        }else{
+            searchUrlImgICon.setImageResource(R.drawable.a3_1);
+            editTextUrl.clearFocus();
+            rlDeleteAndRefresh.setVisibility(View.VISIBLE);
+            rlRefresh.setVisibility(View.VISIBLE);
+            rlDelete.setVisibility(View.GONE);
+            linearScan.setVisibility(View.GONE);
+        }
     }
 }

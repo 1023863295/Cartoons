@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/mental_tool_look"
                 style="@style/Tools_Text_style"
+                android:visibility="gone"
                 android:text="@string/bottom_tools_look" />
         </com.zhy.autolayout.AutoLinearLayout>
 

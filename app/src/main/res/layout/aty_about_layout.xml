@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/about_us_top"
+        layout="@layout/head_top_layout"></include>
+
+    <ImageView
+        android:id="@+id/about_us_img_logo"
+        android:layout_width="160px"
+        android:layout_height="160px"
+        android:layout_marginTop="120px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/about_us_top"
+        android:src="@drawable/icon"/>
+
+    <TextView
+        android:id="@+id/about_us_version_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="追漫神器"
+        android:textColor="#999999"
+        android:textSize="16sp"
+        android:layout_below="@id/about_us_img_logo"/>
+
+</com.zhy.autolayout.AutoRelativeLayout>

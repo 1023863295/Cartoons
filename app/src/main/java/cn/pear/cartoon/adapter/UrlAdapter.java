@@ -30,6 +30,10 @@ public class UrlAdapter extends BaseAdapter {
     public UrlAdapter() {
     }
 
+    public void clear(){
+        list.clear();
+    }
+
     public void setList(List<SearchKeyWords> list) {
         this.list = list;
     }

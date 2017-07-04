@@ -122,8 +122,7 @@ public class PopWindowTools implements View.OnClickListener{
                 mContext.startActivity(intentSave);
                 break;
             case R.id.pop_windowns_text_share:
-                shareWindows = new PopWindowShare(mContext,parent);
-                shareWindows.show();
+                share("","");
                 break;
             case R.id.pop_windowns_text_set:
                 Intent intentSet = new Intent(mContext, SettingAty.class);
@@ -134,5 +133,12 @@ public class PopWindowTools implements View.OnClickListener{
                 break;
         }
         dismiss();
+    }
+
+    private void share(String message,String title){
+        Intent textIntent = new Intent(Intent.ACTION_SEND);
+        textIntent.setType("text/plain");
+        textIntent.putExtra(Intent.EXTRA_TEXT, "这是一段分享的文字");
+        mContext.startActivity(Intent.createChooser(textIntent, "分享"));
     }
 }

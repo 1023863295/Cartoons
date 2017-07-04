@@ -21,6 +21,7 @@ import java.util.TimerTask;
 import cn.pear.cartoon.R;
 import cn.pear.cartoon.base.BaseAty;
 import cn.pear.cartoon.global.MyApplication;
+import cn.pear.cartoon.test.TestAty;
 import cn.shpear.ad.sdk.AdItem;
 import cn.shpear.ad.sdk.BaseAD;
 import cn.shpear.ad.sdk.NotificationAd;
@@ -80,7 +81,9 @@ public class WelcomeAty extends BaseAty implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.jump_ad_welcome:
-                Intent intent = new Intent(WelcomeAty.this,HomeActivity.class);
+//                Intent intent = new Intent(WelcomeAty.this,HomeActivity.class);
+
+                Intent intent = new Intent(WelcomeAty.this,TestAty.class);
                 startActivity(intent);
                 finish();
                 timer.cancel();
@@ -97,7 +100,7 @@ public class WelcomeAty extends BaseAty implements View.OnClickListener{
                 if (msg.what > 0){
                     textJump.setText(msg.what+"s 跳过");
                 }else{
-                    Intent intent = new Intent(WelcomeAty.this,HomeActivity.class);
+                    Intent intent = new Intent(WelcomeAty.this,TestAty.class);
                     startActivity(intent);
                     finish();
                     timer.cancel();
@@ -153,7 +156,7 @@ public class WelcomeAty extends BaseAty implements View.OnClickListener{
                     public void onNoAD(int i) {
                     }
                 });
-        Intent intent = new Intent(getApplication(), HomeActivity.class);
+        Intent intent = new Intent(getApplication(), TestAty.class);
         PendingIntent pi = PendingIntent.getActivity(getApplication(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationAd.setPendingIntent(pi);
         notificationAd.loadAd();

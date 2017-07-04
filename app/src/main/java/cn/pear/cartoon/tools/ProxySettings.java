@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -156,15 +155,17 @@ public class ProxySettings
 			_proxyStatus = true;
 		}
 
-		if (!_proxyStatus)
-			Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
+		if (!_proxyStatus){
+//			Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
+		}
+
 		
 		return _proxyStatus;
 	}
 	
 	public static void setSystemProxy(Context ctx)
 	{
-		Toast.makeText(ctx, ctx.getResources().getString(R.string.ProxySettings_EnablingProxySettings), Toast.LENGTH_SHORT).show();
+//		Toast.makeText(ctx, ctx.getResources().getString(R.string.ProxySettings_EnablingProxySettings), Toast.LENGTH_SHORT).show();
 
 		if (_proxyStatus == null || _proxyStatus == false)
 			testSystemProxy(ctx);
@@ -172,7 +173,7 @@ public class ProxySettings
 		if (_proxyStatus)
 		{
 			setProxy(ctx,getSystemProxyAddress(ctx),getSystemProxyPort(ctx));
-			Toast.makeText(ctx, ctx.getResources().getString(R.string.ProxySettings_ProxySettingsEnabled), Toast.LENGTH_LONG).show();
+//			Toast.makeText(ctx, ctx.getResources().getString(R.string.ProxySettings_ProxySettingsEnabled), Toast.LENGTH_LONG).show();
 		}
 		else
 			resetSystemProxy(ctx);
