@@ -1,5 +1,6 @@
 package cn.pear.cartoon.test;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
@@ -18,9 +19,11 @@ import cn.pear.cartoon.R;
 import cn.pear.cartoon.base.BaseAty;
 import cn.pear.cartoon.global.Constants;
 import cn.pear.cartoon.jsInterface.JsCallNative;
+import cn.pear.cartoon.tools.StringUtil;
 import cn.pear.cartoon.tools.WebConfig;
 import cn.pear.cartoon.ui.DetailAty;
 import cn.pear.cartoon.view.PopWindowTools;
+import cn.shpear.ad.sdk.JavaScriptAdSupport;
 
 import static cn.pear.cartoon.test.PopTextHelper.TEXT_BTN_CN;
 import static cn.pear.cartoon.test.PopTextHelper.TEXT_BTN_COM;
@@ -53,9 +56,12 @@ public class TestAty extends BaseAty implements View.OnClickListener{
 
     private TestWebViewClient webViewClient;
     private TestWeChromeClient webChromeClient;
+    private JavaScriptAdSupport javaScriptAdSupport;
     private JsCallNative jsCallNative;
 
     private PopWindowTools popWindowTools;
+
+    private String url_home = Constants.URL_HOST; //默认是显示主页
 
     private Handler mHandler = new Handler(){
         @Override
@@ -84,7 +90,17 @@ public class TestAty extends BaseAty implements View.OnClickListener{
 
     @Override
     protected void initData() {
+    }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (StringUtil.isEmpty(intent.getStringExtra("to_url"))){
+
+        }else{
+            url_home = intent.getStringExtra("to_url");
+        }
+        mwebview.loadUrl(url_home);
     }
 
     @Override
@@ -96,7 +112,7 @@ public class TestAty extends BaseAty implements View.OnClickListener{
     protected void initView() {
         mwebview = (WebView)findViewById(R.id.test_webview);
         WebConfig.setDefaultConfig(mwebview,this);
-        mwebview.loadUrl(Constants.URL_HOST);
+        mwebview.loadUrl(url_home);
         webViewClient = new TestWebViewClient(this);
         mwebview.setWebViewClient(webViewClient);
 
@@ -105,6 +121,10 @@ public class TestAty extends BaseAty implements View.OnClickListener{
 
         jsCallNative = new JsCallNative(this);
         mwebview.addJavascriptInterface(jsCallNative,"android");
+
+        Intent intent = new Intent(this, DetailAty.class);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        javaScriptAdSupport = new JavaScriptAdSupport(mwebview, pi);
 
 
 
@@ -176,7 +196,7 @@ public class TestAty extends BaseAty implements View.OnClickListener{
                         //--检测url中有apk则下载，如果手机又此apk，自动打开
                     }else {
                         Intent intentDetail = new Intent(TestAty.this,DetailAty.class);
-                        intentDetail.putExtra("url",result);
+                        intentDetail.putExtra("to_url",result);
                         startActivity(intentDetail);
                         return;
                     }
@@ -260,6 +280,8 @@ public class TestAty extends BaseAty implements View.OnClickListener{
         browserSearchView.editTextUrl.setText("");
         browserSearchView.editTextUrl.clearFocus();
         browserSearchView.setEditState(false); //上面方法有时候监听不到
+        browserSearchView.linearScan.setVisibility(View.VISIBLE);
+        browserSearchView.rlDeleteAndRefresh.setVisibility(View.GONE);
         updateBtnBack(false);
         updateBtnNext(false);
     }
@@ -271,6 +293,9 @@ public class TestAty extends BaseAty implements View.OnClickListener{
         }else {
             imgBtnBack.setEnabled(false);
             imgBtnBack.setImageResource(R.drawable.home_1_back);
+            browserSearchView.linearScan.setVisibility(View.VISIBLE);
+            browserSearchView.rlDeleteAndRefresh.setVisibility(View.GONE);
+            browserSearchView.editTextUrl.setText("");
         }
     }
 

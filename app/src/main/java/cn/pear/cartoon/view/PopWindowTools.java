@@ -1,6 +1,5 @@
 package cn.pear.cartoon.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.Gravity;
@@ -15,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.pear.cartoon.R;
+import cn.pear.cartoon.test.TestAty;
 import cn.pear.cartoon.ui.SaveAty;
 import cn.pear.cartoon.ui.SettingAty;
 
@@ -23,7 +23,7 @@ import cn.pear.cartoon.ui.SettingAty;
  */
 //工具弹出框
 public class PopWindowTools implements View.OnClickListener{
-    private Context mContext;
+    private TestAty mContext;
     private View parent; //相对页面控件位置
 
     private PopupWindow popupWindow;
@@ -39,7 +39,7 @@ public class PopWindowTools implements View.OnClickListener{
 
     private PopWindowShare shareWindows;
 
-    public PopWindowTools(Context context,View view){
+    public PopWindowTools(TestAty context,View view){
         this.mContext = context;
         this.parent = view;
         initView();
@@ -122,7 +122,7 @@ public class PopWindowTools implements View.OnClickListener{
                 mContext.startActivity(intentSave);
                 break;
             case R.id.pop_windowns_text_share:
-                share("","");
+                share(mContext.getMwebview().getTitle(),mContext.getMwebview().getUrl());
                 break;
             case R.id.pop_windowns_text_set:
                 Intent intentSet = new Intent(mContext, SettingAty.class);
@@ -135,10 +135,10 @@ public class PopWindowTools implements View.OnClickListener{
         dismiss();
     }
 
-    private void share(String message,String title){
+    private void share(String message,String url){
         Intent textIntent = new Intent(Intent.ACTION_SEND);
         textIntent.setType("text/plain");
-        textIntent.putExtra(Intent.EXTRA_TEXT, "这是一段分享的文字");
-        mContext.startActivity(Intent.createChooser(textIntent, "分享"));
+        textIntent.putExtra(Intent.EXTRA_TEXT, message);
+        mContext.startActivity(Intent.createChooser(textIntent, url));
     }
 }

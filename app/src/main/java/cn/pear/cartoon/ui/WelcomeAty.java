@@ -47,8 +47,9 @@ public class WelcomeAty extends BaseAty implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(SdkContext.permissions_required,1);
+        }else{
+            requestPermission();
         }
-        requestPermission();
     }
 
     @Override
@@ -86,7 +87,11 @@ public class WelcomeAty extends BaseAty implements View.OnClickListener{
                 Intent intent = new Intent(WelcomeAty.this,TestAty.class);
                 startActivity(intent);
                 finish();
-                timer.cancel();
+                if (timer != null){
+                    timer.cancel();
+                    timer.purge();
+                    timer = null;
+                }
                 break;
         }
     }
@@ -103,7 +108,11 @@ public class WelcomeAty extends BaseAty implements View.OnClickListener{
                     Intent intent = new Intent(WelcomeAty.this,TestAty.class);
                     startActivity(intent);
                     finish();
-                    timer.cancel();
+                    if (timer != null){
+                        timer.cancel();
+                        timer.purge();
+                        timer = null;
+                    }
                 }
             }
         };
@@ -127,6 +136,7 @@ public class WelcomeAty extends BaseAty implements View.OnClickListener{
     public void onPermissionGranted(){
         MyApplication.instance.initAdMax();
 //        timer.schedule(timerTask,3000);
+
         timer.schedule(timerTask,0,1000);
 //        pushNotice();
 

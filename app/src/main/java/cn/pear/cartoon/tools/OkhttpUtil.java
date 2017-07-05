@@ -1,6 +1,5 @@
 package cn.pear.cartoon.tools;
-
-import cn.shpear.okhttp3.OkHttpClient;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by liuliang on 2017/7/3.
@@ -34,5 +33,4 @@ public class OkhttpUtil {
         }
         return okHttpClient;
     }
-
 }

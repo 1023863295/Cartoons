@@ -1,21 +1,34 @@
 package cn.pear.cartoon.components;
 
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import cn.pear.cartoon.R;
 
 /**
  * Created by liuliang on 2017/6/28.
  */
 
 public class DetailWeChromeClient extends WebChromeClient {
-    private EditText textTitle;
+    private TextView textTitle;
+    private ProgressBar progressBar;
+    private View parentView;
 
-    public DetailWeChromeClient(EditText textView){
+    public DetailWeChromeClient(TextView textView){
         this.textTitle = textView;
 
     }
 
+    @Override
+    public void onProgressChanged(WebView view, int newProgress) {
+        super.onProgressChanged(view, newProgress);
+        parentView = (View) view.getParent();
+        progressBar = (ProgressBar)parentView.findViewById(R.id.detail_web_progress_bar);
+        progressBar.setProgress(newProgress);
+    }
 
     @Override
     public void onReceivedTitle(WebView view, String title) {

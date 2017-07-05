@@ -49,12 +49,15 @@ import cn.pear.cartoon.global.Constants;
 import cn.pear.cartoon.tools.ApplicationUtils;
 import cn.pear.cartoon.tools.OkhttpUtil;
 import cn.pear.cartoon.tools.PermissionUtil;
+import cn.pear.cartoon.tools.SharedPreferencesHelper;
 import cn.pear.cartoon.tools.StringUtil;
 import cn.pear.cartoon.view.EditTextPreIme;
-import cn.shpear.okhttp3.Call;
-import cn.shpear.okhttp3.OkHttpClient;
-import cn.shpear.okhttp3.Request;
-import cn.shpear.okhttp3.Response;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static cn.pear.cartoon.test.TestAty.START_QR_CODE_ACTIVITY;
 
 /**
  * Created by liuliang on 2017/6/30.
@@ -68,11 +71,12 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
     private RelativeLayout searchRlBody;
     private ImageView searchUrlImgICon;
 
-    private RelativeLayout rlDeleteAndRefresh;
+    public RelativeLayout rlDeleteAndRefresh;
     private RelativeLayout rlDelete;
     public EditTextPreIme editTextUrl;
     private RelativeLayout rlRefresh;
-    private LinearLayout linearScan;
+    public ImageView imgRefresh;
+    public LinearLayout linearScan;
     private ImageButton imgBtnScan;
     private Button btnCancel;
 
@@ -120,6 +124,7 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
         rlDelete.setOnClickListener(this);
         rlRefresh = (RelativeLayout)view.findViewById(R.id.search_rl_refresh);
         rlRefresh.setOnClickListener(this);
+        imgRefresh = (ImageView)view.findViewById(R.id.refresh_image);
         linearScan = (LinearLayout) view.findViewById(R.id.search_linearLayout_scan);
         linearScan.setOnClickListener(this);
         imgBtnScan = (ImageButton)view.findViewById(R.id.search_img_btn_scanBtn);
@@ -166,9 +171,8 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                     String url = activity.getMwebview().getUrl();
 
                     if (hasFocus) {
-                        if (mode == 2){
+                        if (!activity.getMwebview().getUrl().equals(Constants.URL_HOST)){
                             editTextUrl.setText(activity.getMwebview().getUrl());
-                            return;
                         }
                         activity.getMwebview().setVisibility(View.GONE);
                         activity.linearBottomBar.setVisibility(View.GONE);
@@ -247,6 +251,12 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
                 delete();
                 break;
             case R.id.search_rl_refresh:
+                if (mode == 3){ //停止加载
+                    activity.getMwebview().stopLoading();
+                    activity.browserSearchView.imgRefresh.setImageResource(R.drawable.ico_refresh_white);
+                }else if(mode == 2){ //刷新
+                    activity.getMwebview().reload();
+                }
                 break;
             case R.id.search_linearLayout_scan:
             case R.id.search_img_btn_scanBtn:
@@ -309,7 +319,7 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
         }else {
             Toast.makeText(activity,"扫描二维码",Toast.LENGTH_SHORT).show();
             Intent intent =new Intent(activity, CaptureActivity.class);
-            activity.startActivityForResult(intent,9);
+            activity.startActivityForResult(intent,START_QR_CODE_ACTIVITY);
         }
     }
 
@@ -385,6 +395,9 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
             editTextUrl.setTextColor(Color.parseColor("#ffffff"));
             editTextUrl.setHintTextColor(Color.parseColor("#ffffff"));
             btnCancel.setVisibility(View.GONE);
+            if (!activity.getMwebview().getUrl().equals(Constants.URL_HOST)){
+                editTextUrl.setText(activity.getMwebview().getTitle());
+            }
         }
     }
 
@@ -410,8 +423,8 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
             }else {
 
                 try {
-                    //part为从服务器取到并保存在sharedpreferences中的字符串
-                    String part = Constants.URL_DEFAULT_FROM;
+                    //part为从服务器取到并保存在sharedpreference中的字符串
+                    String part = ""+SharedPreferencesHelper.getData(activity,"baidupid", Constants.URL_DEFAULT_FROM);
                     //拼接百度搜索字符串
                     targetUrl = Constants.URL_SEARCH_FROM+ part+ "/s?word="+
                             new String(stringWord.getBytes("UTF-8"), "UTF-8").replace("&", "%26").replace("#","%23").replace("%","%25");
@@ -429,6 +442,9 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
     }
 
     private void saveKeywords(String words){
+        if (StringUtil.isEmpty(words)){
+            return;
+        }
         SearchKeyWords keyWords = new SearchKeyWords();
         keyWords.setKeywords(stringWord);
 
@@ -498,8 +514,8 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
 
     }
 
-    //0代表 ：一种是搜索模式,没有获取焦点，1 搜索模式,获取焦点  2：代表标题显示模式
-    public int mode ;
+    //0代表 ：一种是搜索模式,没有获取焦点，1 搜索模式,获取焦点  2：代表标题显示模式, 3 还处于加载国产
+    public static int mode ;
     public void setMode(int mode){
         this.mode = mode;
         if(mode == 0){
@@ -507,8 +523,9 @@ public class BrowserSearchView extends FrameLayout implements View.OnClickListen
             searchUrlImgICon.setImageResource(R.drawable.home_14_white);
         }else if(mode == 1){
 
-        }else{
+        }else if(mode == 2){
             searchUrlImgICon.setImageResource(R.drawable.a3_1);
+            imgRefresh.setImageResource(R.drawable.ico_refresh_white);
             editTextUrl.clearFocus();
             rlDeleteAndRefresh.setVisibility(View.VISIBLE);
             rlRefresh.setVisibility(View.VISIBLE);

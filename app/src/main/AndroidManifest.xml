@@ -57,7 +57,8 @@
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".test.TestAty"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"></activity>
 
         <activity android:name="cn.shpear.ad.sdk.AppActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />

@@ -26,8 +26,8 @@ import cn.pear.cartoon.R;
 import cn.pear.cartoon.adapter.SaveBookMarksItemAdapter;
 import cn.pear.cartoon.bean.Cartoon;
 import cn.pear.cartoon.db.GreenDaoUtils;
+import cn.pear.cartoon.test.TestAty;
 import cn.pear.cartoon.tools.ApplicationUtils;
-import cn.pear.cartoon.ui.DetailAty;
 
 /**
  * Created by liuliang on 2017/6/22.
@@ -73,8 +73,8 @@ public class SaveListFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onItemClickListener(View view, int position) {
                 if(!isChecking){
-                    Intent intent = new Intent(getActivity(), DetailAty.class);
-                    intent.putExtra("url",listCartoon.get(position).getUrl());
+                    Intent intent = new Intent(getActivity(), TestAty.class);
+                    intent.putExtra("to_url",listCartoon.get(position).getUrl());
                     startActivity(intent);
                 }
             }

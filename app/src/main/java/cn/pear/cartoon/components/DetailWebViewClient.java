@@ -1,6 +1,7 @@
 package cn.pear.cartoon.components;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -21,7 +22,7 @@ public class DetailWebViewClient extends WebViewClient {
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
         View parentView = (View)view.getParent();
-        progressBar = (ProgressBar)parentView.findViewById(R.id.test_web_progress_bar);
+        progressBar = (ProgressBar)parentView.findViewById(R.id.detail_web_progress_bar);
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -43,7 +44,17 @@ public class DetailWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        view.loadUrl(request.toString());
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            view.loadUrl(request.getUrl().toString());
+        }else{
+            view.loadUrl(request.toString());
+        }
+        return true;
+    }
+
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        view.loadUrl(url);
         return true;
     }
 }

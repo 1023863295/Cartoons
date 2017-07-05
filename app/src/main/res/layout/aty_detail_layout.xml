@@ -14,15 +14,30 @@
         android:paddingLeft="11.3px"
         android:background="@color/top_title_bg">
 
+        <TextView
+            android:id="@+id/detail_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="16px"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:minLines="1"
+            android:singleLine="true"
+            android:lines="1"
+            android:text=""/>
+
         <cn.pear.cartoon.view.EditTextPreIme
             android:id="@+id/detail_edit_title"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="70px"
             android:layout_marginRight="100px"
             android:layout_centerVertical="true"
             android:background="@drawable/search_corner_white_gray"
             android:completionHintView="@drawable/ico_fresh"
             android:completionThreshold="1"
+            android:enabled="false"
             android:gravity="center_vertical"
             android:text="搜索或输入网址"
             android:inputType=""
@@ -53,7 +68,7 @@
         android:layout_height="match_parent"></WebView>
 
     <ProgressBar
-        android:id="@+id/test_web_progress_bar"
+        android:id="@+id/detail_web_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_below="@id/detail_rl_top"
         android:layout_width="match_parent"

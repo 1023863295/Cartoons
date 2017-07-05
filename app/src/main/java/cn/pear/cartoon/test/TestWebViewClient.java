@@ -1,6 +1,7 @@
 package cn.pear.cartoon.test;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -29,6 +30,13 @@ public class TestWebViewClient extends WebViewClient {
         View parentView = (View)view.getParent();
         progressBar = (ProgressBar)parentView.findViewById(R.id.test_web_progress_bar);
         progressBar.setVisibility(View.VISIBLE);
+        if (url.equals(Constants.URL_HOST)){
+            testAty.updateBtnBack(false);
+        }else{
+            testAty.refreshBackForwardViews();
+            testAty.browserSearchView.setMode(3);
+            testAty.browserSearchView.imgRefresh.setImageResource(R.drawable.a3_3_white);
+        }
 
     }
 
@@ -36,11 +44,12 @@ public class TestWebViewClient extends WebViewClient {
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
         progressBar.setVisibility(View.GONE);
-        if (url.endsWith(Constants.URL_HOST)){
-            testAty.updateBtnBack(false);
+        if (url.equals(Constants.URL_HOST)){
+//            testAty.updateBtnBack(false);
         }else{
-            testAty.refreshBackForwardViews();
+//            testAty.refreshBackForwardViews();
             testAty.browserSearchView.setMode(2);
+            testAty.browserSearchView.imgRefresh.setImageResource(R.drawable.ico_refresh_white);
         }
     }
 
@@ -56,7 +65,17 @@ public class TestWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        view.loadUrl(request.toString());
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            view.loadUrl(request.getUrl().toString());
+        }else{
+            view.loadUrl(request.toString());
+        }
+        return true;
+    }
+
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        view.loadUrl(url);
         return true;
     }
 }
