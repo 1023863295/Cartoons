@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="60dp"
+	android:orientation="horizontal"
+	android:background="@color/mainBg"
+	android:layout_centerVertical="true"
+	android:descendantFocusability="blocksDescendants"
+	android:paddingTop="5dip" >
+
+	<ImageView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:id="@+id/HistoryRow.Thumbnail"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="5dp"
+		android:layout_centerVertical="true"
+		android:layout_marginRight="10dp"
+		android:padding="2dip"
+		android:background="@drawable/fav_icn_background">
+
+	</ImageView>
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/HistoryRow.Thumbnail"
+		android:layout_marginRight="20dp"
+		android:layout_marginBottom="5dp"
+		android:orientation="vertical"
+		android:layout_gravity="center_vertical">
+		<TextView android:layout_gravity="center_vertical"
+			android:ellipsize="end"
+			android:singleLine="true"
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:textColor="@color/newTextColor"
+			android:id="@+id/HistoryRow.Title"
+			android:text="@+id/HistoryRow.Title"
+			style="@style/History_Title" />
+
+		<TextView android:layout_height="wrap_content"
+			android:id="@+id/HistoryRow.Url"
+			android:ellipsize="end"
+			android:singleLine="true"
+			android:text="@+id/HistoryRow.Url"
+			android:textColor="#999999"
+			android:layout_width="fill_parent"
+			style="@style/History_Url" />
+
+	</LinearLayout>
+	<ImageView
+		android:layout_width="match_parent"
+		android:layout_height="0.3dp"
+		android:layout_alignParentBottom="true"
+		android:background="@color/spide_line"/>
+
+</RelativeLayout>

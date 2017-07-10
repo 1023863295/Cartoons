@@ -36,6 +36,16 @@
         <item name="android:textColor">@color/newTextColor</item>
     </style>
 
+    <style name="History_Title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/newTextColor</item>
+    </style>
+
+    <style name="History_Url">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/newTextColor</item>
+    </style>
+
     <!--  texthelper动画 -->
     <style name="pop_texthelper_anim_style">
         <item name="android:windowEnterAnimation">@anim/umeng_socialize_fade_in</item>
